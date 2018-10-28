@@ -86,6 +86,15 @@ describe('Router', () => {
     expect(router.location.search).toEqual('')
   })
 
+  test('string query is passed as it is', async () => {
+    const stringQuery = encodeURI('search[user_name]=John')
+    await router.push({ pathname: '/a', query: stringQuery })
+    expect(router.location.search).toEqual('?' + stringQuery)
+
+    await router.push('')
+    expect(router.location.search).toEqual('')
+  })
+
   test('updateQuery', async () => {
     await router.updateQuery({ x: '1' })
     expect(router.location.search).toEqual('?x=1')
